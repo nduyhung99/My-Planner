@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/layoutDate"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginLeft="@dimen/_2sdp"
+        android:layout_marginRight="@dimen/_2sdp">
+
+        <TextView
+            android:id="@+id/txtDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="CN"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/txtNumberOfDay"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:layout_below="@+id/txtDay"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="16"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_toRightOf="@+id/layoutDate"
+        android:background="@drawable/background_event_and_work_user"
+        android:paddingLeft="@dimen/_6sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:paddingBottom="@dimen/_2sdp">
+
+        <RelativeLayout
+            android:id="@+id/layoutCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_4sdp">
+
+            <ImageView
+                android:id="@+id/imgNotDone"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_not_done_2" />
+
+            <ImageView
+                android:id="@+id/imgDone"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_done"
+                android:visibility="visible"
+                app:tint="@color/green2" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@+id/layoutCheck"
+            android:ellipsize="end"
+            android:text="@string/detail"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+        <ImageView
+            android:id="@+id/imgBirthday"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:src="@drawable/birthday_cake"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtHaveNoWork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_2sdp"
+        android:layout_toRightOf="@+id/layoutDate"
+        android:text="@string/have_no_work"
+        android:textSize="@dimen/_12sdp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

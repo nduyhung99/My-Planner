@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendarFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="ngay thang nam"
+        android:gravity="center"
+        android:background="@color/teal_200"
+        android:textColor="@color/white"
+        android:padding="@dimen/_6sdp"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:id="@+id/layoutDayOfWeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDate"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/monday"
+            android:gravity="center"
+            android:background="#3EE4FA"
+            android:layout_margin="@dimen/_1sdp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tuesday"
+            android:gravity="center"
+            android:background="#3EE4FA"
+            android:layout_margin="@dimen/_1sdp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/wednesday"
+            android:gravity="center"
+            android:background="#3EE4FA"
+            android:layout_margin="@dimen/_1sdp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/thursday"
+            android:gravity="center"
+            android:background="#3EE4FA"
+            android:layout_margin="@dimen/_1sdp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/friday"
+            android:gravity="center"
+            android:background="#3EE4FA"
+            android:layout_margin="@dimen/_1sdp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/saturday"
+            android:gravity="center"
+            android:background="#FF5722"
+            android:layout_margin="@dimen/_1sdp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sunday"
+            android:gravity="center"
+            android:background="#F44336"
+            android:layout_margin="@dimen/_1sdp"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvNumberOfDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutDayOfWeek" />
+
+</RelativeLayout>

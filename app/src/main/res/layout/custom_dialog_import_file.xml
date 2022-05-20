@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_200sdp"
+    android:layout_height="wrap_content"
+    android:maxHeight="@dimen/_240sdp"
+    android:orientation="vertical"
+    android:background="@drawable/background_dialog">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_file"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:gravity="center"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvListFileImport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp">
+        <TextView
+            android:id="@+id/txtCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/blue1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@id/txtOk"/>
+        <TextView
+            android:id="@+id/txtOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/blue1"
+            android:layout_marginRight="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</LinearLayout>

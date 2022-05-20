@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_4sdp">
+    <TextView
+        android:id="@+id/txtPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="14/03/2022 - 18/03/2022"
+        android:layout_marginLeft="@dimen/_38sdp"/>
+</RelativeLayout>

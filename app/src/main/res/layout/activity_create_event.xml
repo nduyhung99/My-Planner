@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateEventActivity">
+    <RelativeLayout
+        android:id="@+id/layoutToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_4sdp"
+        android:background="@color/gray1">
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/orange1"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/txtTitleActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_toRightOf="@id/imgBack"
+            android:text="@string/new_work"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgTick"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_tick"
+            app:tint="@color/teal_700" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutTitleOfWork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutToolbar"
+        android:layout_marginLeft="@dimen/_4sdp">
+
+        <EditText
+            android:id="@+id/edtWorkName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/imgVoice"
+            android:backgroundTint="@color/black"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/your_work"
+            android:maxLength="200"
+            android:textColorHint="@color/black" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardColor"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:backgroundTint="@color/red1"
+            app:cardCornerRadius="@dimen/_30sdp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgVoice"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_4sdp"
+            android:src="@drawable/ic_voice" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/layoutTitleOfWork"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:src="@drawable/ic_error"
+            app:tint="@color/red2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_work_empty"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red2"
+            android:textSize="@dimen/_8sdp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSelectTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/layoutError"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_12sdp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/_4sdp">
+            <TextView
+                android:id="@+id/txtDateStart"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:text="15/02/2022"
+                android:padding="@dimen/_4sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/background_select_time"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/txtTimeStart"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:text="16:00"
+                android:layout_gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/background_select_time"
+                android:layout_marginTop="@dimen/_2sdp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_forward"
+            app:tint="@color/black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/_4sdp">
+            <TextView
+                android:id="@+id/txtDateEnd"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:text="15/02/2022"
+                android:padding="@dimen/_4sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/background_select_time"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/txtTimeEnd"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:text="16:00"
+                android:layout_gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/background_select_time"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/layoutSelectTime"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginLeft="@dimen/_4sdp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:textStyle="bold"
+            android:textSize="@dimen/_14sdp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:backgroundTint="@color/black"
+            android:maxLength="1000"
+            android:clickable="true"
+            android:maxLines="1"
+            android:focusableInTouchMode="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/layoutDescription"
+        android:layout_marginTop="@dimen/_4sdp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtRepeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:text="@string/repeat"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRepeat"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_toRightOf="@id/txtRepeat" >
+                <AutoCompleteTextView
+                    android:id="@+id/autotxtRepeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:enabled="false"
+                    android:inputType="none"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_12sdp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/gray2"
+            android:layout_marginTop="@dimen/_6sdp"/>
+        <LinearLayout
+            android:id="@+id/layoutRepeatUntil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_4sdp"
+                android:paddingRight="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingTop="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/repeat_until"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/txtRepeatUntil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/no_end_date"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/gray2"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/_4sdp"
+            android:paddingLeft="@dimen/_4sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp">
+            <TextView
+                android:id="@+id/txttNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:thumb="@drawable/thumb_switch"
+                app:track="@drawable/track_switch" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNotification"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="@dimen/_160sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_toRightOf="@id/txttNotification"
+                android:visibility="invisible">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autotxtNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/white"
+                    android:enabled="false"
+                    android:inputType="none"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="#000" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray1">
+        <TextView
+            android:id="@+id/txtCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/orange1"
+            android:textSize="@dimen/_14sdp"
+            android:padding="@dimen/_10sdp"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/gray2"/>
+        <TextView
+            android:id="@+id/txtSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/save"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/orange1"
+            android:textSize="@dimen/_14sdp"
+            android:padding="@dimen/_10sdp"/>
+    </LinearLayout>
+</RelativeLayout>

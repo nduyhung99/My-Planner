@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/_4sdp"
+    android:id="@+id/layoutContainer">
+
+    <TextView
+        android:id="@+id/txtPath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_8sdp"
+        android:ellipsize="start"
+        android:text="/storage/emulated/0/Download/test"
+        android:maxLines="2"/>
+    <LinearLayout
+        android:id="@+id/layoutFileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/txtPath">
+        <TextView
+            android:id="@+id/txtFileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="file name"
+            android:maxLines="2"
+            android:ellipsize="start"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/imgSelectFile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_check"
+            app:tint="@color/blue1"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray2"
+        android:layout_below="@id/layoutFileName"/>
+</RelativeLayout>

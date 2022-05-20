@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WeekFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/txtMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thang 4, 2022"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_2sdp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:id="@+id/layoutDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/layoutDate1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:id="@+id/txtDay1"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="CN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/txtNumberOfDay1"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_below="@+id/txtDay1"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutDate2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:id="@+id/txtDay2"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="CN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/txtNumberOfDay2"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_below="@+id/txtDay2"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutDate3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:id="@+id/txtDay3"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="CN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/txtNumberOfDay3"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_below="@+id/txtDay3"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutDate4"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:id="@+id/txtDay4"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="CN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/txtNumberOfDay4"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_below="@+id/txtDay4"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutDate5"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:id="@+id/txtDay5"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="CN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/txtNumberOfDay5"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_below="@+id/txtDay5"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutDate6"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:id="@+id/txtDay6"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="CN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/txtNumberOfDay6"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_below="@+id/txtDay6"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutDate7"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:id="@+id/txtDay7"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="CN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/txtNumberOfDay7"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_below="@+id/txtDay7"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv4"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv5"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv6"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv7"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+    </LinearLayout>
+
+</LinearLayout>

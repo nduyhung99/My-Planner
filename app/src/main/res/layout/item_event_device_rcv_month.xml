@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EAE9E9"
+    android:id="@+id/layoutContainer">
+    <RelativeLayout
+        android:id="@+id/layoutCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_4sdp">
+        <ImageView
+            android:id="@+id/imgEvent"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:src="@drawable/ic_event_device"
+            app:tint="@color/teal_700"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/_2sdp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/layoutCheck"
+        android:layout_marginLeft="@dimen/_4sdp">
+        <TextView
+            android:id="@+id/txtTitleEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hoc bai"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"/>
+        <TextView
+            android:id="@+id/txtDurationEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ngay 14 thang 2"
+            android:textSize="@dimen/_8sdp"/>
+    </LinearLayout>
+</RelativeLayout>
