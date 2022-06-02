@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -25,6 +26,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.appwidget.AppWidgetManager;
@@ -75,11 +77,30 @@ import com.example.myplanner.model.EventDone;
 import com.example.myplanner.model.Work;
 import com.example.myplanner.notification.BroadcastReceiverTest;
 import com.example.myplanner.notification.MyBroadcastReceiver;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.hsalf.smileyrating.SmileyRating;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -227,6 +248,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    // FIREBASE
+    private final static int RC_SIGN_IN=123;
+    private GoogleSignInClient mGoogleSignInClient;
+    private FirebaseAuth mAuth;
+    GoogleSignInOptions googleSignInOptions;
+    GoogleSignInClient googleSignInClient;
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
 //                stopService(intent);
 
                 stopScheduleJob(MainActivity.this,JOB_ID);
-                updateWidget(MainActivity.this);
+//                updateWidget(MainActivity.this);
             }
         });
 
@@ -769,7 +798,7 @@ public class MainActivity extends AppCompatActivity {
         rcvListWork.setLayoutManager(linearLayoutManager1);
         listWorkAdapter = new ListWorkAdapter(MainActivity.this);
         listEventForListWork = getListEventForListWork();
-        listWorkAdapter.setData(listEventForListWork,getListDone(),getCurrentDate());
+        listWorkAdapter.setData(listEventForListWork,getListDone(myPlannerDatabase),getCurrentDate());
         rcvListWork.setAdapter(listWorkAdapter);
         if (currentDayPosition > 0){
             rcvListWork.scrollToPosition(currentDayPosition - 1);
@@ -816,6 +845,28 @@ public class MainActivity extends AppCompatActivity {
         btnTestService = findViewById(R.id.btnTestService);
         btnTestStopService = findViewById(R.id.btnTestStopService);
         listenerClickFromWidget();
+
+        // FIREBASE
+        createRequest();
+        mAuth = FirebaseAuth.getInstance();
+        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
+    }
+
+    private void createRequest() {
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("759135882676-r31r1jr5nqi9dfrhp18d8v374nau9n68.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     private Date getCurrentDate() {
@@ -948,7 +999,7 @@ public class MainActivity extends AppCompatActivity {
         return calendar.getTime();
     }
 
-    private List<EventDone> getListDone() {
+    public static List<EventDone> getListDone(MyPlannerDatabase myPlannerDatabase) {
         List<EventDone> list = new ArrayList<>();
         Cursor cursor = myPlannerDatabase.getData("select * from EventsDone");
         if (cursor!=null){
@@ -1021,7 +1072,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setDone(List<Event> list) {
-        List<EventDone> listDone = getListDone();
+        List<EventDone> listDone = getListDone(myPlannerDatabase);
         if (listDone!=null){
             for (int i=0; i<listDone.size(); i++){
                 String idEvent = String.valueOf(listDone.get(i).getIdEvent());
@@ -1305,6 +1356,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void clickChart(View view){
+        Cursor cursor = myPlannerDatabase.getData("select * from Events");
+        int check = 0;
+        if (cursor!=null){
+            if (cursor.moveToFirst()){
+                check = 1;
+            }
+        }
+        if (check==1){
+            drawerLayout.close();
+            Intent intent = new Intent(MainActivity.this, ChartActivity.class);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this, getString(R.string.have_no_data), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void clickSyncData(View view){
         showSyncDialog();
         drawerLayout.close();
@@ -1329,29 +1397,195 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateWidget(MainActivity.this);
+        if (!isReminderServiceAlarmSet(MainActivity.this)){
+            startScheduleJob(MainActivity.this);
+        }
+//        updateWidget(MainActivity.this);
     }
 
+    //TODO: Sync with Firebase
     private void showSyncDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_sync);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         LinearLayout layoutDownload = dialog.findViewById(R.id.layoutDownload);
         LinearLayout layoutUpload = dialog.findViewById(R.id.layoutUpload);
+        LinearLayout layoutLogout = dialog.findViewById(R.id.layoutLogout);
+        TextView txtEmail = dialog.findViewById(R.id.txtEmail);
+
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        if (account!=null){
+//
+//        }
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user!=null){
+            layoutLogout.setVisibility(View.VISIBLE);
+            txtEmail.setText(user.getEmail());
+        }else {
+            layoutLogout.setVisibility(View.GONE);
+        }
+
+        layoutLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                logout();
+            }
+        });
+
         layoutUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Upload", Toast.LENGTH_SHORT).show();
+                if (user==null){
+                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                    dialog.dismiss();
+                }else {
+                    dialog.dismiss();
+                    progressDialog.show();
+                    uploadDataToFirebase();
+                }
             }
         });
 
         layoutDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Download", Toast.LENGTH_SHORT).show();
+                if (user==null){
+                    dialog.dismiss();
+                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                }else {
+                    dialog.dismiss();
+                    progressDialog.show();
+                    getDataFromFirebaseAndSave();
+                }
             }
         });
         dialog.show();
+    }
+
+    private void getDataFromFirebaseAndSave() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(user.getEmail().replace(".","%"));
+        List<Work> listWork = new ArrayList<>();
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot :snapshot.getChildren()){
+                    Work work = dataSnapshot.getValue(Work.class);
+                    listWork.add(work);
+                }
+                if (listWork.size()>0){
+                    syncWork(listWork);
+                }else {
+                    Toast.makeText(MainActivity.this, getString(R.string.have_no_data), Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "Lấy dữ liệu thất bại", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void uploadDataToFirebase() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        List<Work> listWork = new ArrayList<>();
+        listWork = getAllData();
+
+        if (listWork.size()>0){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRefName = database.getReference(user.getEmail().replace(".","%"));
+            List<Work> finalListWork = listWork;
+            myRefName.setValue(System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    if (error!=null){
+                        Toast.makeText(MainActivity.this, "Lưu dữ liệu thất bại", Toast.LENGTH_SHORT).show();
+                    }else {
+                        DatabaseReference myRefData = database.getReference(user.getEmail().replace(".","%"));
+                        myRefData.setValue(finalListWork, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                if (error!=null){
+                                    Toast.makeText(MainActivity.this, "Lưu dữ liệu thất bại", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(MainActivity.this, "Lưu dữ liệu thành công", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                    progressDialog.dismiss();
+                }
+            });
+        }else {
+            Toast.makeText(this, getString(R.string.have_no_data), Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+        progressDialog.dismiss();
+    }
+
+    private void logout(){
+        FirebaseAuth.getInstance().signOut();
+        // Google sign out
+        googleSignInClient.signOut().addOnCompleteListener(MainActivity.this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(MainActivity.this, getString(R.string.log_out_success), Toast.LENGTH_SHORT).show();
+                        showSyncDialog();
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                progressDialog.show();
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                progressDialog.dismiss();
+                Toast.makeText(MainActivity.this, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(MainActivity.this, getString(R.string.log_in_success), Toast.LENGTH_SHORT).show();
+                            showSyncDialog();
+                        } else {
+                            googleSignInClient.signOut().addOnCompleteListener(MainActivity.this,
+                                    new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                        }
+                                    });
+                            Toast.makeText(MainActivity.this, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void showRatingDialog() {
@@ -1546,25 +1780,68 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (list.size()>0){
-                    for (int i=0; i<list.size(); i++){
-                        Work work = list.get(i);
-                        if (work.getType().equals("work")){
-                            myPlannerDatabase.queryData("insert into Events values("+work.getIdWork()+",'"+work.getTitle()+"','"+work.getDescription()+"',"+work.getTimeStart()+","+work.getTimeEnd()+","+work.getNotification()+","+work.getRepeat()+","+work.getDateEndOrTimeRepeat()+",0)");
-                        }else if (work.getType().equals("work_done")){
-                            myPlannerDatabase.queryData("insert into EventsDone values ("+work.getIdWork()+",'"+work.getTitle()+"',"+work.getTimeStart()+")");
-                        }
-                    }
-                    reloadAll();
-                    Toast.makeText(this, getString(R.string.data_synced), Toast.LENGTH_SHORT).show();
-                }
+                syncWork(list);
             }else {
-                Toast.makeText(MainActivity.this, getString(R.string.file_does_not_match), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.have_no_data), Toast.LENGTH_SHORT).show();
             }
 
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    //TODO Tránh lưu dữ liệu trùng lặp
+    private void syncWork(List<Work> list) {
+        List<Long> listId = new ArrayList<>();
+        listId = getListId();
+        List<EventDone> listDone = getListDone(myPlannerDatabase);
+        if (list.size()>0){
+            for (int i=0; i<list.size(); i++){
+                Work work = list.get(i);
+                    if (work.getType().equals("work")){
+                        int contain = 0;
+                        for (long id : listId){
+                            if (id==work.getIdWork()){
+                                contain=1;
+                            }
+                        }
+                        if (contain==0){
+                            myPlannerDatabase.queryData("insert into Events values("+work.getIdWork()+",'"+work.getTitle()+"','"+work.getDescription()+"',"+work.getTimeStart()+","+work.getTimeEnd()+","+work.getNotification()+","+work.getRepeat()+","+work.getDateEndOrTimeRepeat()+",0)");
+                        }
+                    }else if (work.getType().equals("work_done")){
+                        if (listDone.size()>0){
+                            int check = 0;
+                            for (EventDone event :listDone){
+                                if (event.getIdEvent() == work.getIdWork() && event.getTimeStart()==work.getTimeStart()){
+                                    check = 1;
+                                }
+                            }
+                            if (check==0){
+                                myPlannerDatabase.queryData("insert into EventsDone values ("+work.getIdWork()+",'"+work.getTitle()+"',"+work.getTimeStart()+")");
+                            }
+                        }else {
+                            myPlannerDatabase.queryData("insert into EventsDone values ("+work.getIdWork()+",'"+work.getTitle()+"',"+work.getTimeStart()+")");
+                        }
+                    }
+            }
+            reloadAll();
+            Toast.makeText(this, getString(R.string.data_synced), Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, getString(R.string.have_no_data), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private List<Long> getListId() {
+        List<Long> list = new ArrayList<>();
+        Cursor cursor = myPlannerDatabase.getData("select IdEvent from Events");
+        if (cursor!=null){
+            while (cursor.moveToNext()){
+                long idWork = cursor.getLong(0);
+                list.add(idWork);
+            }
+            cursor.close();
+        }
+        return list;
     }
 
     private void saveFileExportFromDatabase() {
@@ -1844,7 +2121,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
-            listWorkAdapter.setData(listEventForListWork,getListDone(),getCurrentDate());
+            listWorkAdapter.setData(listEventForListWork,getListDone(myPlannerDatabase),getCurrentDate());
             if (currentDayPosition > 0){
                 rcvListWork.scrollToPosition(currentDayPosition - 1);
             }else {
@@ -1885,5 +2162,19 @@ public class MainActivity extends AppCompatActivity {
             eventOfDayRcvMonthAdapter.setData(getListEventOfCurrentDay(listEvent,currentDay),listEventDoneOfCheckedDay);
             checkListEventOfDay(listEventOfCheckedDay);
         }
+    }
+
+    //Kiểm tra báo thức hoạt động
+    private static boolean isReminderServiceAlarmSet ( Context context ) {
+        Intent intent = new Intent ( context.getApplicationContext (), BroadcastReceiverTest.class );
+        boolean isBackupServiceAlarmSet;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getBroadcast ( context.getApplicationContext (), 200, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_NO_CREATE );
+            isBackupServiceAlarmSet = (PendingIntent.getBroadcast ( context.getApplicationContext (), 200, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_NO_CREATE ) != null);
+        } else {
+            PendingIntent.getBroadcast ( context.getApplicationContext (), 200, intent, PendingIntent.FLAG_NO_CREATE );
+            isBackupServiceAlarmSet = (PendingIntent.getBroadcast ( context.getApplicationContext (), 200, intent, PendingIntent.FLAG_NO_CREATE ) != null);
+        }
+        return isBackupServiceAlarmSet;
     }
 }

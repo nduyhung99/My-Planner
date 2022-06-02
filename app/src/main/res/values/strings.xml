@@ -88,4 +88,14 @@
     <string name="file_does_not_match">File does not match</string>
     <string name="backup_to_cloud">Backup to cloud</string>
     <string name="restore_from_cloud">Restore from cloud</string>
+    <string name="log_out">Log out:</string>
+    <string name="log_in_fail">Log in fail</string>
+    <string name="log_in_success">Log in success</string>
+    <string name="log_out_success">Log out success</string>
+    <string name="chart">Chart</string>
+    <string name="complete">Complete</string>
+    <string name="incomplete">Incomplete</string>
+    <string name="total">Total</string>
+    <string name="have_no_description">Have no description</string>
+    <string name="please_wait">Please wait...</string>
 </resources>

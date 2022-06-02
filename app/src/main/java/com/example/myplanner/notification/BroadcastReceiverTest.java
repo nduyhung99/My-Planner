@@ -34,7 +34,7 @@ public class BroadcastReceiverTest extends BroadcastReceiver {
         if (listWorks.size()>0){
             MainActivity.registerNotification(listWorks, context);
         }
-        Toast.makeText(context, "Bao thuc", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Bao thuc", Toast.LENGTH_SHORT).show();
         MainActivity.stopScheduleJob(context,MainActivity.JOB_ID);
         MainActivity.startScheduleJob(context);
     }

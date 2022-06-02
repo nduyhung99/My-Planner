@@ -89,4 +89,14 @@
     <string name="file_does_not_match">Tệp không phù hợp</string>
     <string name="backup_to_cloud">Sao lưu lên cloud</string>
     <string name="restore_from_cloud">Khôi phục từ cloud</string>
+    <string name="log_out">Đăng xuất:</string>
+    <string name="log_in_fail">Đăng nhập thất bại</string>
+    <string name="log_in_success">Đăng nhập thành công</string>
+    <string name="log_out_success">Đăng xuất thành công</string>
+    <string name="chart">Thống kê</string>
+    <string name="complete">Hoàn thành</string>
+    <string name="incomplete">Chưa hoàn thành</string>
+    <string name="total">Tổng</string>
+    <string name="have_no_description">Không có mô tả</string>
+    <string name="please_wait">Vui lòng đợi...</string>
 </resources>

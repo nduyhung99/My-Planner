@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Project/my-planner/app/src/main/res/drawable-nodpi/background_dialog.xml" value="0.1365" />
+        <entry key="..\:/Project/my-planner/app/src/main/res/layout/activity_chart.xml" value="0.22826086956521738" />
+        <entry key="..\:/Project/my-planner/app/src/main/res/layout/activity_create_event.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/my-planner/app/src/main/res/layout/activity_example_app_widget_config.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/my-planner/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/my-planner/app/src/main/res/layout/activity_setting.xml" value="0.22826086956521738" />
@@ -16,6 +18,8 @@
         <entry key="..\:/Project/my-planner/app/src/main/res/layout/item_event_and_work.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/my-planner/app/src/main/res/layout/item_event_from_gmail.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/my-planner/app/src/main/res/layout/item_event_of_week.xml" value="0.22826086956521738" />
+        <entry key="..\:/Project/my-planner/app/src/main/res/layout/item_file_import.xml" value="0.22826086956521738" />
+        <entry key="..\:/Project/my-planner/app/src/main/res/layout/item_work_chart.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/my-planner/app/src/main/res/layout/main_nav_drawer.xml" value="0.22826086956521738" />
         <entry key="..\:/Project/my-planner/app/src/main/res/xml/example_appwidget_info.xml" value="0.22826086956521738" />
         <entry key="..\:/Projects/My Planner/app/src/main/res/drawable-nodpi/background_dialog.xml" value="0.262" />

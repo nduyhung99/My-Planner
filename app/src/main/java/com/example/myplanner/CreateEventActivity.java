@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -17,7 +18,9 @@ import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -91,11 +94,19 @@ public class CreateEventActivity extends AppCompatActivity {
     private String mission = "";
     private Event eventReceive;
     ArrayAdapter arrayAdapterRepeat;
+    String language="";
 
     MyPlannerDatabase myPlannerDatabase;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SetThemeColor.setThemeColor(Color.WHITE, ContextCompat.getColor(this, R.color.gray1), false, false, CreateEventActivity.this);
+        SharedPreferences sharedPreferences = getSharedPreferences("KEY_LANGUAGE",MODE_PRIVATE);
+        language = sharedPreferences.getString("language","");
+        if (!language.equals("")){
+            MainActivity.setLanguage(this,language);
+        }
         setContentView(R.layout.activity_create_event);
         addControls();
 

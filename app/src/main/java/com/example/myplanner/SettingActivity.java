@@ -60,7 +60,7 @@ public class SettingActivity extends AppCompatActivity {
     private LinearLayout layoutNotificationSettings, layoutSelectLanguage;
     private TextView txtEventFromGmail;
     private RelativeLayout layoutSettingsEventFromGmail;
-    private ImageView imgPrevious;
+    private ImageView imgPrevious, imgBack;
     private RecyclerView rcvSettingsEventFromGmail;
     Context context;
     Resources resources;
@@ -91,6 +91,7 @@ public class SettingActivity extends AppCompatActivity {
         layoutSettingsEventFromGmail = findViewById(R.id.layoutSettingsEventFromGmail);
         imgPrevious = findViewById(R.id.imgPrevious);
         rcvSettingsEventFromGmail = findViewById(R.id.rcvSettingsEventFromGmail);
+        imgBack = findViewById(R.id.imgBack);
 
         myPlannerDatabase = new MyPlannerDatabase(this);
 
@@ -161,6 +162,13 @@ public class SettingActivity extends AppCompatActivity {
                     intent.setData(Uri.parse("package:" + getPackageName()));
                 }
                 startActivity(intent);
+            }
+        });
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
